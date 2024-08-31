@@ -1,6 +1,7 @@
 import express from "express";
 import {imagesUpload} from "../multer";
 import Album from "../models/Albums";
+import Artist from "../models/Artists";
 
 
 const AlbumsRouter = express.Router();
@@ -55,6 +56,58 @@ AlbumsRouter.get( '/albums', async (req, res )=>{
     }
 
 
+});
+
+AlbumsRouter.get( '/albums/:id', async (req, res )=>{
+    const {id} = req.params;
+
+    // if(id){
+    //     try {
+    //         const album = await Album.findOne({ _id: id });
+    //         if (album) {
+    //             console.log(album.artistId)
+    //             const artist = await Artist.findOne({_id: album.artistId });
+    //             console.log(artist)
+    //             if(artist){
+    //
+    //
+    //             }
+    //         }
+    //     }catch (e) {
+    //         res.send('Error')
+    //     }
+    // }
+
+    if(!id){
+        return res.status(400).json('Invalid ID');
+    }
+
+    try {
+        const album = await Album.findOne({ _id: id });
+
+        if(!album){
+            return res.status(400).json('Album not found');
+        }
+
+        const artist = await Artist.findOne({_id: album.artistId });
+
+        if(!artist){
+            return res.status(400).json('Artist not found');
+        }
+
+        const allInfo = {
+            name: artist.name,
+            info: artist.info,
+            photoAuthor: artist.photo,
+            album: album.title,
+            photo: album.photo,
+            dataRelease: album.dataRelease,
+        }
+        res.send(allInfo)
+
+    }catch (e) {
+        
+    }
 });
 
 export default AlbumsRouter;

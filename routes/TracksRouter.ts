@@ -34,7 +34,7 @@ TracksRouter.get( '/tracks', async (req, res )=>{
 
             res.send(trackInfo)
         }catch (e) {
-            res.send('cant find artist')
+            res.send('cant find track')
         }
     }else {
         const tracks = await Track.find();
