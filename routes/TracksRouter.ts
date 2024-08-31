@@ -1,10 +1,10 @@
 import express from "express";
 import Track from "../models/Tracks";
 
-const AlbumsRouter = express.Router();
-AlbumsRouter.use(express.json());
+const TracksRouter = express.Router();
+TracksRouter.use(express.json());
 
-AlbumsRouter.post( '/tracks', async (req, res )=>{
+TracksRouter.post( '/tracks', async (req, res )=>{
     try {
         const TrackObject = new Track({
             title: req.body.title,
@@ -19,5 +19,36 @@ AlbumsRouter.post( '/tracks', async (req, res )=>{
     }
 });
 
+TracksRouter.get( '/tracks', async (req, res )=>{
+    const {album} = req.query;
 
-export default AlbumsRouter;
+    if(album){
+        try {
+            const tracks = await Track.find({albumId: album});
+
+            const trackInfo = tracks.map(album => ({
+                _id: album._id,
+                title: album.title,
+                duration: album.duration,
+            }));
+
+            res.send(trackInfo)
+        }catch (e) {
+            res.send('cant find artist')
+        }
+    }else {
+        const tracks = await Track.find();
+
+        const trackInfo = tracks.map(album => ({
+            _id: album._id,
+            title: album.title,
+            duration: album.duration,
+        }));
+
+        res.send(trackInfo)
+    }
+
+
+});
+
+export default TracksRouter;

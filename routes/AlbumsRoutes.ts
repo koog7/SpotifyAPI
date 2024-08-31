@@ -1,8 +1,6 @@
 import express from "express";
 import {imagesUpload} from "../multer";
 import Album from "../models/Albums";
-import Artist from "../models/Artists";
-import ArtistsRouter from "./ArtistsRoutes";
 
 
 const AlbumsRouter = express.Router();
