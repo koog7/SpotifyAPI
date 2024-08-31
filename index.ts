@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from "mongoose";
 import SpotifyRouter from "./routes/ArtistsRoutes";
 import AlbumsRouter from "./routes/AlbumsRoutes";
+import TracksRouter from "./routes/TracksRouter";
 
 const app = express();
 const port = 8000;
@@ -9,6 +10,7 @@ const port = 8000;
 app.use(express.json())
 app.use('/', SpotifyRouter);
 app.use('/', AlbumsRouter);
+app.use('/', TracksRouter);
 
 const run = async () => {
 
