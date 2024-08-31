@@ -20,5 +20,22 @@ ArtistsRouter.post( '/artists', imagesUpload.single('photo'), async (req, res )=
     }
 });
 
+ArtistsRouter.get( '/artists', async (req, res )=>{
+    try {
+        const artists = await Artist.find();
+
+        const artistInfo = artists.map(artist => ({
+            _id: artist._id,
+            name: artist.name,
+            info: artist.info,
+            photo: artist.photo
+        }));
+
+        res.send(artistInfo)
+    }catch (e) {
+        res.send('cant get data about artists')
+    }
+});
+
 
 export default ArtistsRouter;
