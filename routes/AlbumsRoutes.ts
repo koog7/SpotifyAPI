@@ -61,23 +61,6 @@ AlbumsRouter.get( '/albums', async (req, res )=>{
 AlbumsRouter.get( '/albums/:id', async (req, res )=>{
     const {id} = req.params;
 
-    // if(id){
-    //     try {
-    //         const album = await Album.findOne({ _id: id });
-    //         if (album) {
-    //             console.log(album.artistId)
-    //             const artist = await Artist.findOne({_id: album.artistId });
-    //             console.log(artist)
-    //             if(artist){
-    //
-    //
-    //             }
-    //         }
-    //     }catch (e) {
-    //         res.send('Error')
-    //     }
-    // }
-
     if(!id){
         return res.status(400).json('Invalid ID');
     }
@@ -106,7 +89,7 @@ AlbumsRouter.get( '/albums/:id', async (req, res )=>{
         res.send(allInfo)
 
     }catch (e) {
-        
+        console.log(e)
     }
 });
 
