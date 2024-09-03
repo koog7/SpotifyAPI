@@ -4,10 +4,10 @@ import Album from "../models/Albums";
 import Artist from "../models/Artists";
 
 
-const AlbumsRouter = express.Router();
-AlbumsRouter.use(express.json());
+const albumsRouter = express.Router();
+albumsRouter.use(express.json());
 
-AlbumsRouter.post( '/albums', imagesUpload.single('photo'), async (req, res )=>{
+albumsRouter.post( '/albums', imagesUpload.single('photo'), async (req, res )=>{
     try {
         const ArtistObject = new Album({
             title: req.body.title,
@@ -24,7 +24,7 @@ AlbumsRouter.post( '/albums', imagesUpload.single('photo'), async (req, res )=>{
 });
 
 
-AlbumsRouter.get( '/albums', async (req, res )=>{
+albumsRouter.get( '/albums', async (req, res )=>{
     const {artist} = req.query;
 
     if(artist){
@@ -58,7 +58,7 @@ AlbumsRouter.get( '/albums', async (req, res )=>{
 
 });
 
-AlbumsRouter.get( '/albums/:id', async (req, res )=>{
+albumsRouter.get( '/albums/:id', async (req, res )=>{
     const {id} = req.params;
 
     if(!id){
@@ -93,5 +93,5 @@ AlbumsRouter.get( '/albums/:id', async (req, res )=>{
     }
 });
 
-export default AlbumsRouter;
+export default albumsRouter;
 

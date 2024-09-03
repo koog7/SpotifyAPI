@@ -1,10 +1,10 @@
 import express from "express";
 import Track from "../models/Tracks";
 
-const TracksRouter = express.Router();
-TracksRouter.use(express.json());
+const tracksRouter = express.Router();
+tracksRouter.use(express.json());
 
-TracksRouter.post( '/tracks', async (req, res )=>{
+tracksRouter.post( '/tracks', async (req, res )=>{
     try {
         const TrackObject = new Track({
             title: req.body.title,
@@ -19,7 +19,7 @@ TracksRouter.post( '/tracks', async (req, res )=>{
     }
 });
 
-TracksRouter.get( '/tracks', async (req, res )=>{
+tracksRouter.get( '/tracks', async (req, res )=>{
     const {album} = req.query;
 
     if(album){
@@ -29,6 +29,7 @@ TracksRouter.get( '/tracks', async (req, res )=>{
             const trackInfo = tracks.map(album => ({
                 _id: album._id,
                 title: album.title,
+                albumId: album.albumId,
                 duration: album.duration,
             }));
 
@@ -41,6 +42,7 @@ TracksRouter.get( '/tracks', async (req, res )=>{
 
         const trackInfo = tracks.map(album => ({
             _id: album._id,
+            albumId: album.albumId,
             title: album.title,
             duration: album.duration,
         }));
@@ -51,4 +53,4 @@ TracksRouter.get( '/tracks', async (req, res )=>{
 
 });
 
-export default TracksRouter;
+export default tracksRouter;

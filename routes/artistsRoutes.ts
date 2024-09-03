@@ -2,10 +2,10 @@ import express from "express";
 import {imagesUpload} from "../multer";
 import Artist from "../models/Artists";
 
-const ArtistsRouter = express.Router();
-ArtistsRouter.use(express.json());
+const artistsRouter = express.Router();
+artistsRouter.use(express.json());
 
-ArtistsRouter.post( '/artists', imagesUpload.single('photo'), async (req, res )=>{
+artistsRouter.post( '/artists', imagesUpload.single('photo'), async (req, res )=>{
     try {
         const ArtistObject = new Artist({
             name: req.body.name,
@@ -20,7 +20,7 @@ ArtistsRouter.post( '/artists', imagesUpload.single('photo'), async (req, res )=
     }
 });
 
-ArtistsRouter.get( '/artists', async (req, res )=>{
+artistsRouter.get( '/artists', async (req, res )=>{
     try {
         const artists = await Artist.find();
 
@@ -38,4 +38,4 @@ ArtistsRouter.get( '/artists', async (req, res )=>{
 });
 
 
-export default ArtistsRouter;
+export default artistsRouter;
