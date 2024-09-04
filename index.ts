@@ -12,7 +12,7 @@ app.use(express.json())
 app.use('/', SpotifyRouter);
 app.use('/', AlbumsRouter);
 app.use('/', TracksRouter);
-app.use('/', authUserRouter);
+app.use('/users', authUserRouter);
 
 const run = async () => {
 
